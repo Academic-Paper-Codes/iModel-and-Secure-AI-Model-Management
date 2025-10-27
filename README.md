@@ -16,7 +16,7 @@ Our solution implements cloud-based hierarchical management of AI models. The Se
 
 - Semi_iModel.java: Class inherited from Class `iModel`, defining Semi-$\mathsf{iModel}$ and its algorithms.
 
-- PublicAlgorithm: Definition of some public algorithm methods.
+- PublicAlgorithm.java: Definition of some public algorithm methods.
 
 - Paillier.java: An open-source implementation of the Paillier homomorphic encryption algorithm.
 
@@ -26,17 +26,13 @@ We conducted experiments locally on a 64-bit laptop running on a Windows 11 syst
 
 ## Detailed Function Introduction
 
-### Semi_iModel.java
+### iModel.java
 
 `H1()`: A private function called by other functions to compute the SHA256 hash. The input is data of type `byte[]`, and it returns an element in $\mathbb{Z}_p$.
 
 `H2()`: A private function called by other functions to compute the SHA256 hash. The input is an element in $G_T$, and it returns data of type `byte[]`.
 
 `generateVid()`: A private function called by other functions to generate a 256-bit pseudonymous account.
-
-`setUp()`: Called by the KGC to implement the **Setup** process. The inputs are the total user number and model size, and it returns the master secret key and master public key.
-
-`keyGen()`: Called by the KGC to implement the **KeyGen** process. The inputs are the master secret key and user account, and it returns the generated $r_{id}, sk_{id}, v_{id}$.
 
 `calculatePolyCoefficients()`: A private function called by other functions to compute polynomial coefficients. The inputs are the permission control policy and a random number, and it returns a polynomial coefficient array.
 
@@ -48,9 +44,9 @@ We conducted experiments locally on a 64-bit laptop running on a Windows 11 syst
 
 `bytesToMod()`: A private function called by other functions to parse `byte[]` type data into model parameters.
 
-`paillierEncrypt()`: A public algorithm for Paillier homomorphic encryption. The inputs are the Paillier public key and a Biginteger type message, and it returns a Biginteger type ciphertext.
+`setUp()`: Called by the KGC to implement the **Setup** process. The inputs are the total user number and model size, and it returns the master secret key and master public key.
 
-`paillierDecrypt()`: A public algorithm for Paillier decryption. The inputs are the Paillier public key, Paillier secret key, and a Biginteger type ciphertext, and it returns the decrypted result as a Biginteger.
+`keyGen()`: Called by the KGC to implement the **KeyGen** process. The inputs are the master secret key and user account, and it returns the generated $r_{id}, sk_{id}, v_{id}$.
 
 `modProcess()`: Called by the AI provider to implement the **ModProcess** process. The inputs are the model parameter array, permission control policy, master public key, and Paillier public key, and it returns the chameleon hash result and processed model.
 
@@ -60,17 +56,36 @@ We conducted experiments locally on a 64-bit laptop running on a Windows 11 syst
 
 `riCheck()`: Called by the cloud server to implement the **RiCheck** process. The inputs are the request type, processed model, user’s right token, and pseudonymous account, and it returns a flag. If the verification is successful, the corresponding $p_1$/$p_2$/$p_3$ will also be returned.
 
-`modAvail_AIUserSide()`: Called by an AI user with Avail permission to implement the AI user side of the **ModAvail** process. The inputs are the user secret key, $p_1$ obtained from the cloud server, and the user plaintext message, and it returns the encrypted data.
+`modAvail_User()`: Called by an AI user with Avail permission to implement the AI user side of the **ModAvail** process. The inputs are the user secret key, $p_1$ obtained from the cloud server, and the user plaintext message, and it returns the encrypted data.
 
-`modAvail_CloudServerSide()`: Called by the cloud server to implement the cloud server side of the **ModAvail** process. The inputs are the user-submitted ciphertext and processed model, and it outputs the ciphertext of the model execution result. To call this function, the actual model must be invoked within this function.
-
-`modAvail_AIProviderSide()`: Called by the AI provider to implement the AI provider side of the **ModAvail** process. The inputs are the Paillier public key, Paillier secret key, and the ciphertext of the model execution result, and it outputs the decrypted model execution result.
+`modAvail_Cloud()`: Called by the cloud server to implement the cloud server side of the **ModAvail** process. The inputs are the user-submitted ciphertext and processed model, and it outputs the ciphertext of the model execution result. To call this function, the actual model must be invoked within this function.
 
 `modTrain()`: Called by an AI user with Train permission. The inputs are the user secret key and $p_2$ obtained from the cloud server, and it returns the processed local model. To call this function, the actual model must be invoked within this function.
 
 `modUpgrade()`: Called by an AI user with Upgrade permission. The inputs are the user secret key, $p_1, p_2, p_3$ obtained from the cloud server, and the list of collected local models $C_{M,2}$, and it returns the new processed global model.
 
 `CM3replaceCM1()`: A private function called by other functions to replace the corresponding parameters in $C_{M,1}$ with those in $C_{M,3}$.
+
+
+### Semi_iModel.java
+
+
+
+
+
+
+
+
+
+
+
+
+`paillierEncrypt()`: A public algorithm for Paillier homomorphic encryption. The inputs are the Paillier public key and a Biginteger type message, and it returns a Biginteger type ciphertext.
+
+`paillierDecrypt()`: A public algorithm for Paillier decryption. The inputs are the Paillier public key, Paillier secret key, and a Biginteger type ciphertext, and it returns the decrypted result as a Biginteger.
+
+
+
 
 ### Full_iModel.java
 
@@ -88,4 +103,4 @@ Note: The Full-$\mathsf{iModel}$'s **ModAvail** process doesn't require AI provi
 
 ## Usage
 
-Instantiate the Full_iModel or Semi_iModel class and call the corresponding algorithms. Note that execution requires invoking the actual AI models used in the **ModAvail** and **ModTrain** sections of the respective code.  
+Instantiate the Full_iModel or Semi_iModel class and call the corresponding algorithms. Note that execution requires invoking the actual AI models used in the **ModAvail** and **ModTrain** sections of the respective code, and supplementing the threshold encryption algorithm used in **PublicAlgorithm**.
