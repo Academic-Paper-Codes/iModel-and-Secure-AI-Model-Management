@@ -183,16 +183,6 @@ public class iModel {
         return result;
     }
 
-    BigInteger calculateModel(BigInteger[] c13, BigInteger c) {
-        /* TODO 向加密的模型传入c运算，返回SR_cipher */
-        BigInteger SR_cipher = c;
-        for(int i=0; i<paraNum; i++) {
-            SR_cipher = SR_cipher.multiply(c13[i]).mod(BigInteger.valueOf(2).pow(1024).subtract(BigInteger.valueOf(1)));
-        }
-        return SR_cipher;
-        /* TODO */
-    }
-
     /**
      * [KGC] Generate e, G, GT, Zp, g
      * @param n         Total user number
@@ -449,7 +439,9 @@ public class iModel {
      */
     public BigInteger modAvail_Cloud(BigInteger c, Object[] CM1) {
         BigInteger[] c13 = (BigInteger[]) CM1[14];
-        return calculateModel(c13, c);
+        BigInteger SR_cipher;
+        // The cloud server passes c to the encrypted model for computation, and the result is SR_cipher.
+        return SR_cipher;
     }
 
     /**
@@ -568,14 +560,4 @@ public class iModel {
 
         return new Object[]{vid, c1, c2, c3, c4, c5, c6, c7, c8_star, c9, c10, c11, c12, pkc, c13_star, rh3};
     }
-
-
-
-
-
-
-
-
-
-
 }
