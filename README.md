@@ -10,15 +10,19 @@ Our solution implements cloud-based hierarchical management of AI models. The Se
 
 - a.properties: Elliptic curve parameter file.
 
-- Full_iModel.java: Class defining Full-$\mathsf{iModel}$ and its algorithms.
+- iModel.java: Class defining $\mathsf{iModel}$ and its algorithms.
+
+- Full_iModel.java: Class inherited from Class `iModel`, defining Full-$\mathsf{iModel}$ and its algorithms.
+
+- Semi_iModel.java: Class inherited from Class `iModel`, defining Semi-$\mathsf{iModel}$ and its algorithms.
+
+- PublicAlgorithm: Definition of some public algorithm methods.
 
 - Paillier.java: An open-source implementation of the Paillier homomorphic encryption algorithm.
 
-- Semi_iModel.java: Class defining Semi-$\mathsf{iModel}$ and its algorithms.
-
 ## Runtime Environment
 
-We conducted experiments locally on a 64-bit laptop running on a Windows 10 system with 8GB of memory, and the processor is Intel® Core™ i5-8250U CPU @ 1.60GHz 1.80 GHz. We used Java with JDK-14 and relied on version 2.0.0 of the JPBC library, which can be downloaded and installed from [http://gas.dia.unisa.it/projects/jpbc/download.html]().
+We conducted experiments locally on a 64-bit laptop running on a Windows 11 system with 32GB of memory, and the processor is Intel® Core™ Ultra 5 225H (1.70GHz) CPU. We used Java with JDK-14 and relied on version 2.0.0 of the JPBC library, which can be downloaded and installed from [http://gas.dia.unisa.it/projects/jpbc/download.html]().
 
 ## Detailed Function Introduction
 
