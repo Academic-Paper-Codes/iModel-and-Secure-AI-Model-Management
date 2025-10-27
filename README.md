@@ -72,7 +72,7 @@ We conducted experiments locally on a 64-bit laptop running on a Windows 11 syst
 
 ### Full_iModel.java
 
-`modAvail_Cloud_partialDecrypt`, `modAvail_Cloud_combine`, `modAvail_Cloud_finalDecrypt`: Implements the threshold decryption operation required by the cloud server for the **ModAvail** process.
+`modAvail_Cloud_partialDecrypt()`, `modAvail_Cloud_combine()`, `modAvail_Cloud_finalDecrypt()`: Implements the threshold decryption operation required by the cloud server for the **ModAvail** process.
 
 Note: The Full-$\mathsf{iModel}$'s **ModAvail** process doesn't require AI provider participation, therefore it doesn't include the `modAvail_AIProviderSide()` function.
 
