@@ -66,38 +66,13 @@ We conducted experiments locally on a 64-bit laptop running on a Windows 11 syst
 
 `CM3replaceCM1()`: A private function called by other functions to replace the corresponding parameters in $C_{M,1}$ with those in $C_{M,3}$.
 
-
 ### Semi_iModel.java
 
-
-
-
-
-
-
-
-
-
-
-
-`paillierEncrypt()`: A public algorithm for Paillier homomorphic encryption. The inputs are the Paillier public key and a Biginteger type message, and it returns a Biginteger type ciphertext.
-
-`paillierDecrypt()`: A public algorithm for Paillier decryption. The inputs are the Paillier public key, Paillier secret key, and a Biginteger type ciphertext, and it returns the decrypted result as a Biginteger.
-
-
-
+`modAvail_Provider()`: Called by the AI provider to implement the AI provider side of the **ModAvail** process. The inputs are the Paillier public key, Paillier secret key, and the ciphertext of the model execution result, and it outputs the decrypted model execution result.
 
 ### Full_iModel.java
 
-Similar to the functions in Semi_iModel.java, with the following differences:
-
-`pkhsToBytes()`: A private function called by other functions. Converts Paillier public keys into `byte[]` type data.
-
-`parsePkhs()`: A private function called by other functions. Parses `byte[]` type data into Paillier public keys.
-
-`modProcess()`: Requires implementation of an actual key splitting scheme within this function when used.
-
-`modAvail_CloudServerSide_decrypt()`: Implements the single decryption operation required by the cloud server for the **ModAvail** process.
+`modAvail_Cloud_partialDecrypt`, `modAvail_Cloud_combine`, `modAvail_Cloud_finalDecrypt`: Implements the threshold decryption operation required by the cloud server for the **ModAvail** process.
 
 Note: The Full-$\mathsf{iModel}$'s **ModAvail** process doesn't require AI provider participation, therefore it doesn't include the `modAvail_AIProviderSide()` function.
 
